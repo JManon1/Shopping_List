@@ -65,6 +65,10 @@ header h1 {
     cursor: pointer;
 }
 
+.hidden {
+    display: none;
+}
+
 .btn:hover {
     background-color: #444;
 }
