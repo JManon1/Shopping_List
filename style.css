@@ -42,5 +42,50 @@ header h1 {
     border: 1px solid #ccc;
     border-radius: 10px;
     outline: none;
-
 }
+
+.form-input-filter {
+    margin-top: 20px;
+    width: 100%;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    outline: none;
+}
+
+.btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #444;
+}
+
+.btn-clear {
+    margin-top: 20px;
+    width: 100%;
+    font-size: 16px;
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.btn-clear:hover {
+    background-color: #f1f1f1;
+}
+
+.text-red {
+    color: red;
+}
+
