@@ -13,6 +13,12 @@ function displayItems() {
     checkUI();
 }
 
+function FindDuplicate(item) {
+    const items = getItemsFromStorage();
+
+    return items.includes(item)
+}
+
 function onAddItemSubmit(e) {
     e.preventDefault();
     const newItem = itemInput.value;
@@ -22,13 +28,23 @@ function onAddItemSubmit(e) {
         return;
     }
 
+    if (FindDuplicate(newItem)) {
+        alert('Item already exists');
+        return;
+    }
+    if (isEditMode) {
+        const itemToEdit = itemList.querySelector('.edit-mode');
+
+        removeItemFromStorage(itemToEdit.textContent);
+        itemToEdit.classList.remove('edit-mode');
+        itemToEdit.remove();
+        isEditMode = false;
+    }
     // Create item DOM element
     addItemToDOM(newItem);
 
     // Add item to local storage
     addItemToStorage(newItem);
-
-    itemInput.value = '';
 
     checkUI();
 }
@@ -43,15 +59,22 @@ function onClickItem(e) {
 }
 
 function setItemToEdit(item) {
-    isEditMode = true;
+    isEditMode = item.classList.contains('edit-mode')?false:true;
 
+    console.log(item.classList);
     itemList.querySelectorAll('li')
         .forEach((i) => i.classList.remove('edit-mode'));
     item.classList.add('edit-mode');
-
-    formBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Update Item';
-    formBtn.style.backgroundColor = '#228B22';
-    itemInput.value = item.textContent;
+    if (isEditMode) {
+        formBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Update Item';
+        formBtn.style.backgroundColor = '#228B22';
+        itemInput.value = item.textContent;
+    } 
+    else {
+        item.classList.remove('edit-mode');
+        checkUI();
+    }
+    
 }
 
 function removeItem(item) {
@@ -135,6 +158,7 @@ function getItemsFromStorage() {
 }
 
 function checkUI() {
+    itemInput.value = '';
     const items = itemList.querySelectorAll('li');
     if (items.length === 0) {
         itemFilter.classList.add('hidden');
@@ -144,6 +168,10 @@ function checkUI() {
         itemFilter.classList.remove('hidden');
         buttonClear.classList.remove('hidden');
     }
+
+    formBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Add Item';
+    formBtn.style.backgroundColor = '#333';
+    isEditMode = false;
 }
 
 function onFilter(e) {
